@@ -9,6 +9,3 @@ form.addEventListener('submit', event => {
     event.preventDefault();
     controller.adicionar();
 });
-
-
-const negociacao = new Negociacao(new Date(), 10, 100);
