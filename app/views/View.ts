@@ -1,4 +1,4 @@
-export class View {
+export abstract class View<T> {
 
     protected elemento: HTMLElement;
 
@@ -6,6 +6,9 @@ export class View {
         this.elemento = document.querySelector(seletor);     
     }
 
-
-
+    abstract template(model: T): string;
+    
+    update(model: T): void {
+        this.elemento.innerHTML = this.template(model);
+    }
 }
