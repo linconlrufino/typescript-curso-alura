@@ -1,3 +1,4 @@
+import { daysOfWeek } from "../enums/daysOfWeek.js";
 import { Negociacao } from "../models/negociacao.js";
 import { NegociacoesView } from "../views/NegociacoesView.js";
 import { Negociacoes } from './../models/negociacoes.js';
@@ -18,23 +19,40 @@ export class NegociacaoController {
         this.negociacoesView.update(this.negociacoes);
     }
 
-    adicionar(): void {
+    addNegociacao(): void {
+        if(this.isWeekend(this.inputData.valueAsDate)){
+            return this.MensagemView.update('Apenas Negociação em dias úteis são aceitas');
+        }
+
         const negociacao = new Negociacao(
             this.inputData.valueAsDate,
             this.inputQuantidade.valueAsNumber,
             this.inputValor.valueAsNumber
         );
-        
+    
         this.negociacoes.add(negociacao);
-        this.negociacoesView.update(this.negociacoes);
-        this.MensagemView.update('Negociação adicionada com sucesso!');
-        this.limparFormulario();
+        this.updateView();
+        this.cleanForm();
     }
 
-    limparFormulario(): void { 
+    private isWeekend(data : Date): boolean {
+        const day = data.getDay();
+
+        if(day > daysOfWeek.sunday && day < daysOfWeek.saturday) 
+            return false;
+        else
+            return true;
+    }
+
+    private cleanForm(): void { 
         this.inputData.value ='';
         this.inputQuantidade.value ='';
         this.inputValor.value ='';
         this.inputData.focus();
+    }
+
+    private updateView(): void {
+        this.negociacoesView.update(this.negociacoes);
+        this.MensagemView.update('Negociação adicionada com sucesso!');
     }
 }
