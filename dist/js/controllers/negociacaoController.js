@@ -22,6 +22,8 @@ export class NegociacaoController {
         this.updateView();
         this.cleanForm();
     }
+    importaDados() {
+    }
     isWeekend(data) {
         const day = data.getDay();
         if (day > daysOfWeek.sunday && day < daysOfWeek.saturday)

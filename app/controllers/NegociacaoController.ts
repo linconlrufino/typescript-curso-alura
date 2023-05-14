@@ -35,6 +35,10 @@ export class NegociacaoController {
         this.cleanForm();
     }
 
+    importaDados(): void {
+        
+    }
+
     private isWeekend(data : Date): boolean {
         const day = data.getDay();
 
