@@ -36,7 +36,20 @@ export class NegociacaoController {
     }
 
     importaDados(): void {
-        
+        fetch('http://localhost:8080/dados')
+        .then(res => res.json())
+        .then((dados: any[]) => {
+            return dados.map( dado => {
+                return new Negociacao(new Date(), dado.vezes, dado.montante)
+            })
+        })
+        .then(negociacoesHoje => {
+            for(let negociacao of negociacoesHoje) {
+                this.negociacoes.add(negociacao);
+            }
+            this.negociacoesView.update(this.negociacoes);
+        });
+
     }
 
     private isWeekend(data : Date): boolean {
