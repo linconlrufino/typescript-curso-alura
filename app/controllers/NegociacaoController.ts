@@ -1,4 +1,5 @@
 import { daysOfWeek } from "../enums/daysOfWeek.js";
+import { NegociacaoDoDia } from "../interfaces/NegociacaoDoDia.js";
 import { Negociacao } from "../models/negociacao.js";
 import { NegociacoesView } from "../views/NegociacoesView.js";
 import { Negociacoes } from './../models/negociacoes.js';
@@ -38,7 +39,7 @@ export class NegociacaoController {
     importaDados(): void {
         fetch('http://localhost:8080/dados')
         .then(res => res.json())
-        .then((dados: any[]) => {
+        .then((dados: NegociacaoDoDia[]) => {
             return dados.map( dado => {
                 return new Negociacao(new Date(), dado.vezes, dado.montante)
             })
